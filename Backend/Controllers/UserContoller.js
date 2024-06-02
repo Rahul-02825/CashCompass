@@ -2,13 +2,18 @@ const User=require('../Models/Usermodel')
 
 
 //GET
-
 exports.GetUser=async(req,res)=>{
-    //const user=await User.findbyId(req.user.id)
-    
+    try{
+        //Get id from the ensureauthenticated function(from the cookies in browser)
+        
+        const user=await User.findbyId(req.user.id)
+        user?res.json(user):res.send('no user found')
+
+    }catch(err){
+        console.error(error)
+        res.status(500).send('Server error')
+    }
 }
-
-
 
 //POST
 exports.CreateUser=async(req,res)=>{
@@ -39,7 +44,7 @@ exports.CreateUser=async(req,res)=>{
 
 //PUT
 exports.updateUserDetails = async (req, res) => {
-    //const user=await User.findById({req.user.id})
+    const user=await User.findById(req.user.id)
     const updates = req.body
 
     try {
