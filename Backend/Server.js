@@ -1,10 +1,10 @@
 const express = require('express');
-const connectDB = require('./config/db');
+const connectDB = require('./Config/Database');
 const passport = require('passport');
 const cors = require('cors');
 const MongoStore = require('connect-mongo');
 const path = require('path');
-require('./config/Auth');
+require('./Config/Auth');
 
 // Initialize Express app
 const app = express();
