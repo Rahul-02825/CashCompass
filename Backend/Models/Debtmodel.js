@@ -35,7 +35,7 @@ const DebtSchema = new Schema({
         type:Number,
         required:true,
     },
-    status:{
+    debtstatus:{
         type:String,
         required:true,
         default:false,

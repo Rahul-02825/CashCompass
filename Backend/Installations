@@ -1,2 +1,8 @@
-node
-mongoose
+Backend dependencies:
+    node
+    express
+    mongoose
+    bcrypt
+    passport
+    express-session
+    mongostore
