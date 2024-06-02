@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost/leaveportal', {
+        await mongoose.connect('mongodb://localhost/debtDb', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

@@ -14,8 +14,8 @@ connectDB();
 
 // Middleware
 const corsoption = {
-    origin: 'http://localhost:3000', // React app's URL
-    credentials: true // Enable sending cookies with requests
+    origin: 'http://localhost:3000', 
+    credentials: true 
 };
 app.use(cors(corsoption))
 app.use(express.json());
@@ -23,9 +23,9 @@ app.use(express.json());
 // Session storage
 app.use(require('express-session')({
     secret: 'keyboard cat',
-    resave: true,  // Usually false unless your store does not implement the touch method
-    saveUninitialized: false,  // False if you do not want to save empty sessions
-    store: new MongoStore({ mongoUrl: 'mongodb://localhost/appdb', collectionName: "sessions" }),
+    resave: true,  
+    saveUninitialized: false,  
+    store: new MongoStore({ mongoUrl: 'mongodb://localhost/debtDb', collectionName: "sessions" }),
     cookie: { maxAge: 1000 * 60 * 60 * 24,
      } // 1 day
 }));
@@ -64,10 +64,7 @@ app.get('/user', (req, res) => {
 app.use('/api', ensureAuthenticated);
 
 // API Routes
-app.use('/api', formapi);
-app.use('/api', getnameapi);
-app.use('/api', jobapi);
-app.use('/api', userapi);
+
 
 
 // Start the server

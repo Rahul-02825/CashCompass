@@ -1,11 +1,9 @@
 const User=require('../Models/Usermodel')
-
-
 //GET
 exports.GetUser=async(req,res)=>{
     try{
         //Get id from the ensureauthenticated function(from the cookies in browser)
-        
+
         const user=await User.findbyId(req.user.id)
         user?res.json(user):res.send('no user found')
 
