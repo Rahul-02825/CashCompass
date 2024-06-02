@@ -24,3 +24,33 @@ exports.createDebts=async(req,res)=> {
         res.status(500).send('Server error')
     }
 }
+
+//GET where status is true or false based on (req.query.status) by query in endpoint url
+exports.getDebts=async(req,res)=>{
+    try{
+        const filter={_id:req.user.id}
+        req.query.status?filter.debtstatus='true':filter.debtstatus=req.query.status
+
+        const users = await Debt.find(filter);    
+
+        users.length===0?res.status(404).json({message:'user not found'}):res.json(users)
+    
+    }catch(err){
+        console.error(err)
+        res.status(500).send('Server error')
+    }
+}
+
+//GET where status is true and false (history)
+
+exports.getDebts=async(req,res)=>{
+    try{
+        const users = await Debt.findbyId(user.req.id);    
+
+        users.length===0?res.status(404).json({message:'user not found'}):res.json(users)
+        
+    }catch(err){
+        console.error(err)
+        res.status(500).send('Server error')
+    }
+}

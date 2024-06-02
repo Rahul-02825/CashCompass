@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 function validatenumber(value) {
     const stringValue = value.toString();
     return stringValue.length === 10 && /^\d+$/.test(stringValue); 
-  }
-  
+}
+
 const userSchema = new mongoose.Schema({
     username:{
         type:String,
