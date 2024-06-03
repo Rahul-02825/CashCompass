@@ -1,5 +1,8 @@
 const express =require('express')
-const router=express()
+const router=express.Router()
+const Usercontroller=require('../Controllers/UserContoller')
 
 
-router.get()
+router.post('/user',Usercontroller.CreateUser)
+
+module.exports = router;

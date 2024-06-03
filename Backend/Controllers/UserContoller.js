@@ -1,9 +1,11 @@
 const User=require('../Models/Usermodel')
+const bcrypt = require('bcrypt');
+
 //GET
 exports.GetUser=async(req,res)=>{
     try{
+        
         //Get id from the ensureauthenticated function(from the cookies in browser)
-
         const user=await User.findbyId(req.user.id)
         user?res.json(user):res.send('no user found')
 

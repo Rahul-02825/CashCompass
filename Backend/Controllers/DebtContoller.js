@@ -1,13 +1,13 @@
 const Debt=require('../Models/Debtmodel')
 
 //POST
-exports.createDebts=async(req,res)=> {
-    const user=await User.findbyId(req.user.id)
+exports.CreateDebts=async(req,res)=> {
+    //const user=await User.findbyId(req.user.id)
     const {firstname, secondname, email, contact,money,enddate } = req.body;
     debtstatus=req.body.checkbox?'true':'false'
 
     try{
-        const newUser=new User({
+        const newUser=new Debt({
             user:req.user.id,
             firstname,
             secondname,
@@ -26,7 +26,7 @@ exports.createDebts=async(req,res)=> {
 }
 
 //GET where status is true or false based on (req.query.status) by query in endpoint url
-exports.getDebts=async(req,res)=>{
+exports.GetDebts=async(req,res)=>{
     try{
         const filter={_id:req.user.id}
         req.query.status?filter.debtstatus='true':filter.debtstatus=req.query.status
@@ -43,7 +43,7 @@ exports.getDebts=async(req,res)=>{
 
 //GET where status is true and false (history)
 
-exports.getDebts=async(req,res)=>{
+exports.GetDebts=async(req,res)=>{
     try{
         const users = await Debt.findbyId(user.req.id);    
 

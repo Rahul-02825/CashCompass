@@ -6,6 +6,10 @@ const MongoStore = require('connect-mongo');
 const path = require('path');
 require('./Config/Auth');
 
+//import custom routes
+const Userapi=require('./Api/Userapi')
+
+
 // Initialize Express app
 const app = express();
 
@@ -51,6 +55,7 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
     res.json({ user: req.user._id });
 });
 
+
 app.get('/user', (req, res) => {
     if (req.isAuthenticated()) {
         res.json({ user: req.user });
@@ -59,14 +64,13 @@ app.get('/user', (req, res) => {
     }
 });
 
-
 // Apply ensureAuthenticated middleware to all /api routes
-app.use('/api', ensureAuthenticated);
+//app.use('/api', ensureAuthenticated);
 
 // API Routes
 
-
+app.use('/api',Userapi)
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 9001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
