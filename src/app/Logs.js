@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import logo from "../assets/Login_logo.jpg"; // Move this import to the top
-
+import logo from "../assets/Login_logo.jpg"; 
+import {useNavigate} from 'react-router-dom'
 axios.defaults.withCredentials = true;
 
 export default function Admin_login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [responseData, setResponseData] = useState(null); // State to store response data
+    const [responseData, setResponseData] = useState(null); 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,21 +21,22 @@ export default function Admin_login() {
             console.error(err);
         }
     };
+    //navigation
+    const navigate =useNavigate()
+    const handlenavigate=()=>{
+        navigate('./register')
+    }
 
-    return (
+     return (
         <div>
             <div className="flex h-screen">
-                <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-                    <div
-                        className="hidden md:block w-full shadow-2xl"
-                        style={{ backgroundImage: `url(${logo})`, backgroundSize: "cover", backgroundPosition: "center" }}
-                    ></div>
-                    <div className="w-full flex flex-col justify-center items-center h-full">
-                        <h1 className="text-center text-2xl font-bold py-8 text-gray-600">Member Login</h1>
+                <div className="grid grid-cols-1  w-full">
+                    <div className="w-full flex flex-col justify-center items-center h-full px">
+                        <h1 className="text-center text-2xl font-bold py-8 text-gray-600 md:text-3xl">Member Login</h1>
                         <div className="w-full flex flex-col justify-center items-center">
                             <form onSubmit={handleSubmit} className="w-full flex flex-col justify-center items-center">
                                 <input 
-                                    className="rounded-2xl p-3 m-5 bg-gray-100 lg:px-10"
+                                    className="rounded-2xl p-3 m-5 bg-gray-100 md:px-14 lg:px-16"
                                     type="text"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
@@ -43,7 +44,7 @@ export default function Admin_login() {
                                     required 
                                 />
                                 <input 
-                                    className="rounded-2xl p-3 mx-5 bg-gray-100 lg:px-10" 
+                                    className="rounded-2xl p-3 mx-5 bg-gray-100 md:px-14 lg:px-16" 
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -51,7 +52,7 @@ export default function Admin_login() {
                                     required 
                                 />
                                 <button 
-                                    className="rounded-2xl px-20 py-3 mx-5 mt-5 lg:px-30 bg-green-500 text-white font-semibold" 
+                                    className="rounded-2xl px-20 py-3 mx-5 mt-5 md:px-28 lg:px-32 bg-green-500 text-white font-semibold" 
                                     type="submit"
                                 >
                                     LOGIN
@@ -59,6 +60,11 @@ export default function Admin_login() {
                             </form>
                             <p className="text-gray-500 mt-5">Forgot password?</p>
                             {message && <p>{message}</p>}
+                            <div class="w-48 md:w-72 border-t-2 border-gray-300 mt-4"></div>
+                            <button className="rounded-2xl px-16 py-3 mx-5 mt-5 md:px-28 lg:px-32 bg-blue-400 text-white font-semibold" onClick={handlenavigate} >
+                                    REGISTER
+                            </button>
+
                         </div>
                     </div>
                 </div>
