@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import axios from 'axios';
-import { ClipLoader } from 'react-spinners'; // Import the spinner
+import { ClipLoader } from 'react-spinners'; 
 
 const ProtectedRoutes = () => {
     const [user, setUser] = useState(null);
@@ -10,7 +10,7 @@ const ProtectedRoutes = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get('http://localhost:9001/user', { withCredentials: true }); // Ensure credentials are sent
+                const response = await axios.get('http://localhost:9001/user', { withCredentials: true });
                 if (response.data) {
                     setUser(response.data);
                 } else {
