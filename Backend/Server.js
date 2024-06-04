@@ -52,13 +52,13 @@ function ensureAuthenticated(req, res, next) {
 
 // Public Routes
 app.post('/login', passport.authenticate('local'), (req, res) => {
-    res.json({ user: req.user._id });
+    res.json({ user: req.user._id,username:req.user.firstname });
 });
 
 
 app.get('/user', (req, res) => {
     if (req.isAuthenticated()) {
-        res.json({ user: req.user });
+        res.json({ username: req.user.firstname });
     } else {
         res.status(401).json({ message: 'Not authenticated' });
     }

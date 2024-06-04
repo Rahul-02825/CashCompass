@@ -1,32 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import logo from "../assets/Login_logo.jpg"; 
+import ProtectedRoutes from '../Middleware/ProtectedRoute'
 import {useNavigate} from 'react-router-dom'
 axios.defaults.withCredentials = true;
+
 
 export default function Admin_login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [responseData, setResponseData] = useState(null); 
+    const [responseData, setResponseData] = useState(''); 
+
+     //navigation
+     const navigate =useNavigate()
+     const navigatehome=useNavigate()
+     const handlenavigate=()=>{
+         navigate('./register')
+     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:9001/login', { username, password });
-            setResponseData(response.data); 
-            setMessage('Login successful');
+            console.log(response)
+            setResponseData(response.data.username); 
+            setMessage('Login successful');         
+            await navigatehome('./nav')     
         } catch (err) {
             setMessage('Invalid credentials');
             console.error(err);
         }
-    };
-    //navigation
-    const navigate =useNavigate()
-    const handlenavigate=()=>{
-        navigate('./register')
-    }
-
+    };   
      return (
         <div>
             <div className="flex h-screen">
@@ -53,7 +57,7 @@ export default function Admin_login() {
                                 />
                                 <button 
                                     className="rounded-2xl px-20 py-3 mx-5 mt-5 md:px-28 lg:px-32 bg-green-500 text-white font-semibold" 
-                                    type="submit"
+                                    type="submit" 
                                 >
                                     LOGIN
                                 </button>
@@ -72,3 +76,4 @@ export default function Admin_login() {
         </div>
     );
 }
+
