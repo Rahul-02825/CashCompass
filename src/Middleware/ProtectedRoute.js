@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useContext} from 'react';
 import { Outlet, Navigate } from "react-router-dom";
+import Usercontext from '../Middleware/Context'
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners'; 
 
@@ -7,12 +9,18 @@ const ProtectedRoutes = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const {setuser}=useContext(Usercontext)
+
+
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const response = await axios.get('http://localhost:9001/user', { withCredentials: true });
                 if (response.data) {
+                    console.log(response)
                     setUser(response.data);
+                    setuser(response.data.username)
                 } else {
                     setUser(null);
                 }

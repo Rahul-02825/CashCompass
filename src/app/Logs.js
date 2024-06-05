@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import ProtectedRoutes from '../Middleware/ProtectedRoute'
 import {useNavigate} from 'react-router-dom'
 axios.defaults.withCredentials = true;
 
 
 export default function Admin_login() {
+    
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -24,7 +25,9 @@ export default function Admin_login() {
             const response = await axios.post('http://localhost:9001/login', { username, password });
             console.log(response)
             setResponseData(response.data.username); 
-            setMessage('Login successful');         
+            setMessage('Login successful');
+            console.log(responseData) 
+          //  setuser({ username:response.data.username });
             await navigatehome('./nav')     
         } catch (err) {
             setMessage('Invalid credentials');
