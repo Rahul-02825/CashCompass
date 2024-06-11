@@ -31,7 +31,7 @@ export default function Navbar({ toggleSidebar }) {
             {/* Left side content */}
             <div className="flex items-center">
                 <div className="text-3xl sm:hidden" onClick={toggleSidebar}><TbMenu2 /></div>
-                <div className="ml-4 text-2xl font-semibold">Welcome Back, {user ? user : 'Guest'}</div>
+                <div className="ml-4 text-2xl font-semibold">Welcome Back, {user ? user.toUpperCase() : 'Guest'}</div>
             </div>
 
             {/* Right side content */}

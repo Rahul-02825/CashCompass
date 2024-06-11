@@ -18,7 +18,7 @@ const ProtectedRoutes = () => {
             try {
                 const response = await axios.get('http://localhost:9001/user', { withCredentials: true });
                 if (response.data) {
-                    console.log(response)
+                    //console.log(response)
                     setUser(response.data);
                     setuser(response.data.username)
                 } else {

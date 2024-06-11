@@ -44,7 +44,7 @@ exports.CreateUser=async(req,res)=>{
 
 //PUT
 exports.updateUserDetails = async (req, res) => {
-    const user=await User.findById(req.user.id)
+    const userId=await User.findById(req.user.id)
     const updates = req.body
 
     try {

@@ -23,7 +23,6 @@ const DebtSchema = new Schema({
     },
     email: {
         type: String,
-        unique: true,
     },
     contact:{
         type:Number,

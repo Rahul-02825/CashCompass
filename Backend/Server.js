@@ -7,8 +7,8 @@ const path = require('path');
 require('./Config/Auth');
 
 //import custom routes
-const Userapi=require('./Api/Userapi')
-
+const Userapi = require('./Api/Userapi');
+const Debtapi = require('./Api/Debtapi');
 
 // Initialize Express app
 const app = express();
@@ -18,20 +18,19 @@ connectDB();
 
 // Middleware
 const corsoption = {
-    origin: 'http://localhost:3000', 
-    credentials: true 
+    origin: 'http://localhost:3000',
+    credentials: true
 };
-app.use(cors(corsoption))
+app.use(cors(corsoption));
 app.use(express.json());
 
 // Session storage
 app.use(require('express-session')({
     secret: 'keyboard cat',
-    resave: true,  
-    saveUninitialized: false,  
-    store: new MongoStore({ mongoUrl: 'mongodb://localhost/debtDb', collectionName: "sessions" }),
-    cookie: { maxAge: 1000 * 60 * 60 * 24,
-     } // 1 day
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({ mongoUrl: 'mongodb://localhost/debtDb', collectionName: 'sessions' }),
+    cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
 }));
 
 // Initialize Passport.js
@@ -47,14 +46,15 @@ function ensureAuthenticated(req, res, next) {
         return next();
     }
     console.log('User is not authenticated');
-    res.status(401).json({ message: 'Not authenticated' });  
+    res.status(401).json({ message: 'Not authenticated' });
 }
+console.log('ensureAuthenticated:', ensureAuthenticated); // Check if it's defined and a function
+
 
 // Public Routes
 app.post('/login', passport.authenticate('local'), (req, res) => {
-    res.json({ user: req.user._id,username:req.user.firstname });
+    res.json({ user: req.user._id, username: req.user.firstname });
 });
-
 
 app.get('/user', (req, res) => {
     if (req.isAuthenticated()) {
@@ -64,12 +64,12 @@ app.get('/user', (req, res) => {
     }
 });
 
-// Apply ensureAuthenticated middleware to all /api routes
-//app.use('/api', ensureAuthenticated);
+// Export ensureAuthenticated for use in routes
+module.exports = { ensureAuthenticated };
 
 // API Routes
-
-app.use('/api',Userapi)
+app.use('/api', Userapi);
+app.use('/api', Debtapi);
 
 // Start the server
 const PORT = process.env.PORT || 9001;

@@ -7,6 +7,7 @@ exports.CreateDebts=async(req,res)=> {
     debtstatus=req.body.checkbox?'true':'false'
 
     try{
+        console.log(firstname)
         const newUser=new Debt({
             user:req.user.id,
             firstname,
@@ -17,10 +18,13 @@ exports.CreateDebts=async(req,res)=> {
             debtstatus,
             enddate
         })
+        console.log(newUser)
+        res.status(201).json(newUser)
+
         await newUser.save()
     }
     catch(err){
-        console.error(error)
+        console.error(err)
         res.status(500).send('Server error')
     }
 }
@@ -42,15 +46,73 @@ exports.GetDebts=async(req,res)=>{
 }
 
 //GET where status is true and false (history)
+exports.GetDebtHistory = async (req, res) => {
+    try {
+        const user = await Debt.find({user:req.user.id});
+        //console.log(user);
 
-exports.GetDebts=async(req,res)=>{
-    try{
-        const users = await Debt.findbyId(user.req.id);    
+        if (!user) {
+            console.log('no user')
+            return res.status(404).json({ message: 'User not found' });
+        }
 
-        users.length===0?res.status(404).json({message:'user not found'}):res.json(users)
-        
-    }catch(err){
-        console.error(err)
-        res.status(500).send('Server error')
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error no id');
     }
-}
+};
+
+
+exports.updateDebt = async (req, res) => {
+    const { id, money } = req.body;
+    
+    try {
+        let stat=false;
+        let remainingDebt;
+
+        const prevDebt=await Debt.findOne({_id:id})
+
+        console.log(prevDebt)
+
+        if(prevDebt.money>parseInt(money)){
+            if(prevDebt.money-parseInt(money)===0){
+                remainingDebt=0
+                stat=true;
+            }
+            else{
+                remainingDebt=prevDebt.money-money
+                stat=false;
+            }
+            updates={
+                $set: {
+                    money:remainingDebt,
+                    debtstatus:stat
+                }   
+            }
+            
+            const updatedDebt = await Debt.findOneAndUpdate(
+                {_id:id},
+                updates,
+                { new: true, runValidators: true }
+            );
+    
+            if (!updatedDebt) {
+                return res.status(404).json({ message: 'Debt not found' });
+            }
+
+            // const resp={
+            //     message:'updated succesfully',
+            //     stat:true
+            // }
+            res.json('updated succesfully')
+        }
+        else{
+            res.send('Invalid balance')
+        }
+        
+    } catch (err) {
+        console.error('Error updating debt:', err);
+        res.status(500).send('Server error');
+    }
+};

@@ -27,8 +27,9 @@ export default function Admin_login() {
             setResponseData(response.data.username); 
             setMessage('Login successful');
             console.log(responseData) 
+            /*tried to get user fromn login */
           //  setuser({ username:response.data.username });
-            await navigatehome('./home')     
+            await navigatehome('./debt')     
         } catch (err) {
             setMessage('Invalid credentials');
             console.error(err);
