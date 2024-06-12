@@ -7,7 +7,6 @@ exports.CreateDebts=async(req,res)=> {
     debtstatus=req.body.checkbox?'true':'false'
 
     try{
-        console.log(firstname)
         const newUser=new Debt({
             user:req.user.id,
             firstname,
@@ -18,7 +17,6 @@ exports.CreateDebts=async(req,res)=> {
             debtstatus,
             enddate
         })
-        console.log(newUser)
         res.status(201).json(newUser)
 
         await newUser.save()
@@ -29,21 +27,6 @@ exports.CreateDebts=async(req,res)=> {
     }
 }
 
-//GET where status is true or false based on (req.query.status) by query in endpoint url
-exports.GetDebts=async(req,res)=>{
-    try{
-        const filter={_id:req.user.id}
-        req.query.status?filter.debtstatus='true':filter.debtstatus=req.query.status
-
-        const users = await Debt.find(filter);    
-
-        users.length===0?res.status(404).json({message:'user not found'}):res.json(users)
-    
-    }catch(err){
-        console.error(err)
-        res.status(500).send('Server error')
-    }
-}
 
 //GET where status is true and false (history)
 exports.GetDebtHistory = async (req, res) => {
@@ -51,19 +34,27 @@ exports.GetDebtHistory = async (req, res) => {
         const user = await Debt.find({user:req.user.id});
         //console.log(user);
 
+        const truestatus=user.filter(item=>(item.debtstatus)==='true')
+        const falsestatus=user.filter(item=>(item.debtstatus)==='false')
+   
+        // console.log(truestatus)
         if (!user) {
             console.log('no user')
             return res.status(404).json({ message: 'User not found' });
         }
-
-        res.json(user);
+        const response = {
+            all: user,
+            pending: falsestatus,
+            completed: truestatus
+        };
+        res.json(response);
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error no id');
     }
 };
 
-
+//PUT (update the debt money getting the unique debt id)
 exports.updateDebt = async (req, res) => {
     const { id, money } = req.body;
     
@@ -75,7 +66,7 @@ exports.updateDebt = async (req, res) => {
 
         console.log(prevDebt)
 
-        if(prevDebt.money>parseInt(money)){
+        if(prevDebt.money>=parseInt(money) && prevDebt.money!==0){
             if(prevDebt.money-parseInt(money)===0){
                 remainingDebt=0
                 stat=true;
@@ -101,10 +92,7 @@ exports.updateDebt = async (req, res) => {
                 return res.status(404).json({ message: 'Debt not found' });
             }
 
-            // const resp={
-            //     message:'updated succesfully',
-            //     stat:true
-            // }
+          
             res.json('updated succesfully')
         }
         else{
