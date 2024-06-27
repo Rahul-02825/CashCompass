@@ -29,7 +29,7 @@ const Modal = ({ isVisible, onClose }) => {
     setIsSubmitting(true); 
     console.log('Form submission started');
     try {
-      const response = await axios.post('http://localhost:9001/api/donor', formData);
+      const response = await axios.post('https://cash-compass-server.vercel.app/api/donor', formData);
       alert("Record created successfully");
       setFormData(initialFormData); 
       onClose(); 

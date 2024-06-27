@@ -32,7 +32,7 @@ const UpdateModal = ({ isVisible, onClose, id_ }) => {
     setIsSubmitting(true); 
     console.log('Form submission started');
     try {
-      const response = await axios.put('http://localhost:9001/api/debtupdate', formData);
+      const response = await axios.put('https://cash-compass-server.vercel.app/api/debtupdate', formData);
       console.log(response.data)  
       setMessage(response.data)
       console.log(message)

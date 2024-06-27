@@ -24,7 +24,7 @@ const DebtTable = () => {
         console.log('iam update useffect rendered')
         const fetchDebtUser = async () => {
             try {
-                const response = await axios.get('http://localhost:9001/api/historydebts', { withCredentials: true });
+                const response = await axios.get('https://cash-compass-server.vercel.app/api/historydebts', { withCredentials: true });
                 setResponsedata(response.data);
                 //console.log(response.data);
             } catch (error) {

@@ -22,7 +22,7 @@ export default function Admin_login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:9001/login', { username, password });
+            const response = await axios.post('https://cash-compass-server.vercel.app/login', { username, password });
             console.log(response)
             setResponseData(response.data.username); 
             setMessage('Login successful');
