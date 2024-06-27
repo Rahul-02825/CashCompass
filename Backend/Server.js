@@ -38,17 +38,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Authentication Middleware
-function ensureAuthenticated(req, res, next) {
-    console.log('Session:', req.session);
-    console.log('User:', req.user);
-    if (req.isAuthenticated()) {
-        console.log('User is authenticated');
-        return next();
-    }
-    console.log('User is not authenticated');
-    res.status(401).json({ message: 'Not authenticated' });
-}
-console.log('ensureAuthenticated:', ensureAuthenticated); // Check if it's defined and a function
+// function ensureAuthenticated(req, res, next) {
+//     console.log('Session:', req.session);
+//     console.log('User:', req.user);
+//     if (req.isAuthenticated()) {
+//         console.log('User is authenticated');
+//         return next();
+//     }
+//     console.log('User is not authenticated');
+//     res.status(401).json({ message: 'Not authenticated' });
+// }
+//console.log('ensureAuthenticated:', ensureAuthenticated); 
 
 
 // Public Routes
@@ -64,13 +64,11 @@ app.get('/user', (req, res) => {
     }
 });
 
-// Export ensureAuthenticated for use in routes
-module.exports = { ensureAuthenticated };
+//module.exports = { ensureAuthenticated };
 
 // API Routes
 app.use('/api', Userapi);
 app.use('/api', Debtapi);
 
-// Start the server
 const PORT = process.env.PORT || 9001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

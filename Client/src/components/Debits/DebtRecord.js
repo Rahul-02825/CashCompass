@@ -21,6 +21,7 @@ const DebtTable = () => {
     const [filter,filterset]=useState(initalfilterdata)
 
     useEffect(() => {
+        console.log('iam update useffect rendered')
         const fetchDebtUser = async () => {
             try {
                 const response = await axios.get('http://localhost:9001/api/historydebts', { withCredentials: true });
@@ -35,7 +36,7 @@ const DebtTable = () => {
 
         const intervalId = setInterval(fetchDebtUser, 4000); // Poll every 4 seconds
 
-        return () => clearInterval(intervalId); //clean up function return to original
+        return () => clearInterval(intervalId); //clean up function 
     }, []);
 
     const handleAddClick = (id) => {
@@ -148,6 +149,7 @@ const DebtTable = () => {
                 </table>
             </div>
             {/* on small screens in card form */}
+
             <div className="md:hidden m-2 sm:overflow-auto max-h-[450px]">
                 {responsedata[filter].map((item,index)=>(
                     <div key={index} className="shadow-lg m-5 flex flex-col">

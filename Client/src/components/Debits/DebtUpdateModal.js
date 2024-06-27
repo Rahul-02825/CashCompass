@@ -14,7 +14,9 @@ const UpdateModal = ({ isVisible, onClose, id_ }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    console.log('updata effect')
     setFormData({ ...formData, id: id_ });
+    console.log(formData)
   }, [id_]);
 
   const handleChange = (e) => {
