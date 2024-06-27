@@ -17,6 +17,7 @@ const ProtectedRoutes = () => {
         const fetchUser = async () => {
             try {
                 const response = await axios.get('https://cash-compass-server.vercel.app/user', { withCredentials: true });
+                console.log(response.data)
                 if (response.data) {
                     //console.log(response)
                     setUser(response.data);
