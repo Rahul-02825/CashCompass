@@ -16,7 +16,7 @@ const ProtectedRoutes = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get('http://localhost:9001/user', { withCredentials: true });
+                const response = await axios.get('https://cash-compass-server.vercel.app/user', { withCredentials: true });
                 if (response.data) {
                     //console.log(response)
                     setUser(response.data);
