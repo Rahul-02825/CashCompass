@@ -6,7 +6,6 @@ axios.defaults.withCredentials = true;
 
 export default function Admin_login() {
     
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -29,12 +28,12 @@ export default function Admin_login() {
             console.log(responseData) 
             /*tried to get user fromn login */
           //  setuser({ username:response.data.username });
-            await navigatehome('./debt')     
+            await navigatehome('./debt')    
         } catch (err) {
             setMessage('Invalid credentials');
             console.error(err);
         }
-    };   
+    }; 
      return (
         <div>
             <div className="flex h-screen">
@@ -80,4 +79,3 @@ export default function Admin_login() {
         </div>
     );
 }
-
