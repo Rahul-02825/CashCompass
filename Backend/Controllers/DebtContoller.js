@@ -18,7 +18,6 @@ exports.CreateDebts=async(req,res)=> {
             enddate
         })
         res.status(201).json(newUser)
-
         await newUser.save()
     }
     catch(err){
