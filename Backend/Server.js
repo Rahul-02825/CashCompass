@@ -20,17 +20,13 @@ const app = express();
 })();
 
 // Middleware
-const corsoption = {
-  origin: "*",
+const corsOptions = {
+  origin: "https://cash-compass-sigma.vercel.app", // Specific origin for CORS
   credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
-app.use(
-  cors({
-    credentials: true,
-    origin: "*",
-    allowedHeaders: "application/json",
-  })
-);
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", async (req, res) => {
@@ -88,4 +84,4 @@ app.use("/api", Userapi);
 app.use("/api", Debtapi);
 
 const PORT = process.env.PORT || 9001;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server started bhj on port ${PORT}`));
