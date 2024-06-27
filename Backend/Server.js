@@ -18,7 +18,7 @@ connectDB();
 
 // Middleware
 const corsoption = {
-    origin: 'https://cash-compass-server.vercel.app',
+    origin: '*',
     credentials: true
 };
 app.use(cors(corsoption));
