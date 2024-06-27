@@ -3,10 +3,11 @@ const connectDB = require("./Config/Database");
 const passport = require("passport");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
+const path = require("path");
 require("./Config/Auth");
 require("dotenv").config();
 
-// Import custom routes
+//import custom routes
 const Userapi = require("./Api/Userapi");
 const Debtapi = require("./Api/Debtapi");
 
@@ -19,16 +20,20 @@ const app = express();
 })();
 
 // Middleware
-const corsOptions = {
-  origin: "https://cash-compass-sigma.vercel.app", // Specific origin for CORS
+const corsoption = {
+  origin: "*",
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
 };
-
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    credentials: true,
+    origin: "*",
+    allowedHeaders: "application/json",
+  })
+);
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   return res.send("<h1>Hello world</h1>");
 });
 
@@ -50,6 +55,19 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Authentication Middleware
+// function ensureAuthenticated(req, res, next) {
+//     console.log('Session:', req.session);
+//     console.log('User:', req.user);
+//     if (req.isAuthenticated()) {
+//         console.log('User is authenticated');
+//         return next();
+//     }
+//     console.log('User is not authenticated');
+//     res.status(401).json({ message: 'Not authenticated' });
+// }
+//console.log('ensureAuthenticated:', ensureAuthenticated);
+
 // Public Routes
 app.post("/login", passport.authenticate("local"), (req, res) => {
   res.json({ user: req.user._id, username: req.user.firstname });
@@ -63,16 +81,11 @@ app.get("/user", (req, res) => {
   }
 });
 
+//module.exports = { ensureAuthenticated };
+
 // API Routes
 app.use("/api", Userapi);
 app.use("/api", Debtapi);
 
 const PORT = process.env.PORT || 9001;
-//app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-app.listen(PORT, (err) => {
-  if (err) {
-    console.error('Error starting server:', err);
-    process.exit(1);
-  }
-  console.log(`Server started on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
