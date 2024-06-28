@@ -43,7 +43,8 @@ app.use(
       mongoUrl: `mongodb+srv://${process.env.MONGO_USER_NAME}:${process.env.MONGO_PASSWORD}@project1.5gw2hh9.mongodb.net/CashCompass?retryWrites=true&w=majority&appName=project1`,
       collectionName: "sessions",
     }),
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
+    cookie: { httpOnly: true,
+      sameSite: 'none', maxAge: 1000 * 60 * 60 * 24 }, // 1 day
   })
 );
 
