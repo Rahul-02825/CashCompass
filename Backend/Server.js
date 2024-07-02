@@ -23,7 +23,7 @@ const app = express();
 const corsOptions = {
   origin: "https://cash-compass-sigma.vercel.app", // Specific origin for CORS
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
+  
 };
 
 app.use(cors(corsOptions));
