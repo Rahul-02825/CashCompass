@@ -27,11 +27,11 @@ passport.serializeUser(function (user, done) {
 });
 
 // Deserialize user information from session
-passport.deserializeUser(async function (id, done) {
-  try {
-    const user = await User.findById(id).exec();
-    done(null, user);
-  } catch (err) {
-    done(err, null);
-  }
-});
+// passport.deserializeUser(async function (id, done) {
+//   try {
+//     const user = await User.findById(id).exec();
+//     done(null, user);
+//   } catch (err) {
+//     done(err, null);
+//   }
+// });
