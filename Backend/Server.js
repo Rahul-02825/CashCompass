@@ -76,7 +76,6 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
 
 app.get("/user", (req, res) => {
   if (req.isAuthenticated()) {
-    req.session = { cookie: "" };
     res.json({ username: req.user.firstname });
   } else {
     res.status(401).json({ message: "Not authenticated" });
