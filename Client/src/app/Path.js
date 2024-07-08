@@ -16,7 +16,6 @@ function Path(){
                     <Route path="/" element={<Logs/>}/>    
                     <Route element={<ProtectedRoutes/>} >             
                         <Route path="/debt" element={<DebtPage/>}/> 
-                        <Route path="/check" element={<DebtRecord/>}/> 
                     </Route>  
                     <Route path="/Register" element={<Register/>}/>    
 
