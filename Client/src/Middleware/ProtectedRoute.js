@@ -4,7 +4,9 @@ import { Outlet, Navigate } from "react-router-dom";
 import Usercontext from '../Middleware/Context'
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners'; 
+
 axios.defaults.withCredentials = true;
+
 
 const ProtectedRoutes = () => {
     const [user, setUser] = useState(null);
