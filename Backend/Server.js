@@ -47,7 +47,7 @@ app.use(
       maxAge: 24 * 60 * 60 * 1000, // 1 day
       httpOnly: true, // Helps prevent cross-site scripting attacks
       secure: false, // Set to true if using HTTPS
-      sameSite: 'lax' // Helps prevent CSRF attacks
+      sameSite: 'None' 
     }, // 1 day
   })
 );
