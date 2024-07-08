@@ -5,6 +5,8 @@ import { FaAngleDown } from "react-icons/fa";
 
 
 import UpdateModal from './DebtUpdateModal';
+axios.defaults.withCredentials = true;
+
 
 const DebtTable = () => {
     const [responsedata, setResponsedata] = useState({

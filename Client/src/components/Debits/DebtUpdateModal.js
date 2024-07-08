@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 
 const UpdateModal = ({ isVisible, onClose, id_ }) => {
   const initialFormData = {   
@@ -32,7 +34,12 @@ const UpdateModal = ({ isVisible, onClose, id_ }) => {
     setIsSubmitting(true); 
     console.log('Form submission started');
     try {
-      const response = await axios.put('https://cash-compass-server.vercel.app/api/debtupdate', formData);
+      const response = await axios.put('https://cash-compass-server.vercel.app/api/debtupdate', formData,{
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true // Ensure cookies are sent with the request
+      });
       console.log(response.data)  
       setMessage(response.data)
       console.log(message)

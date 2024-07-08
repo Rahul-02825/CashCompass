@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 
 
 const Modal = ({ isVisible, onClose }) => {
@@ -29,7 +31,12 @@ const Modal = ({ isVisible, onClose }) => {
     setIsSubmitting(true); 
     console.log('Form submission started');
     try {
-      const response = await axios.post('https://cash-compass-server.vercel.app/api/donor', formData);
+      const response = await axios.post('https://cash-compass-server.vercel.app/api/donor', formData,{
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true // Ensure cookies are sent with the request
+        });
       alert("Record created successfully");
       setFormData(initialFormData); 
       onClose(); 
