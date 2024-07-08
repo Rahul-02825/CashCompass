@@ -71,6 +71,7 @@ app.use(passport.session());
 
 // Public Routes
 app.post("/login", passport.authenticate("local"), (req, res) => {
+  console.log('Set-Cookie Header:', res.getHeader('Set-Cookie'));
   res.json({ user: req.user._id, username: req.user.firstname });
 });
 
