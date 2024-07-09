@@ -48,7 +48,7 @@ app.use(
       secure: true, 
       sameSite: 'None', 
     },
-  })a
+  })
 );
 
 // Initialize Passport.js
