@@ -35,17 +35,17 @@ app.get("/", async (req, res) => {
 // Session storage
 app.use(
   require("express-session")({
-    secret: "keyboard cat",
+    secret: process.env.SESSION_SECRET || "keyboard cat",
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
-      mongoUrl: `mongodb+srv://${process.env.MONGO_USER_NAME}:${process.env.MONGO_PASSWORD}@project1.5gw2hh9.mongodb.net/CashCompass?retryWrites=true&w=majority&appName=project1`,
+      mongoUrl: process.env.MONGO_URI,
       collectionName: "sessions",
     }),
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
       httpOnly: true, // Helps prevent cross-site scripting attacks
-      secure: true, // Set to true if using HTTPS
+      secure: process.env.NODE_ENV === 'production', // Set to true if using HTTPS
       sameSite: 'None', // Ensure cross-site cookies are allowed
     },
   })
