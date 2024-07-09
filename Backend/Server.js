@@ -35,20 +35,20 @@ app.get("/", async (req, res) => {
 // Session storage
 app.use(
   require("express-session")({
-    secret: process.env.SESSION_SECRET || "keyboard cat",
+    secret: "keyboard cat",
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
-      mongoUrl: process.env.MONGO_URI,
+      mongoUrl: `mongodb+srv://${process.env.MONGO_USER_NAME}:${process.env.MONGO_PASSWORD}@project1.5gw2hh9.mongodb.net/CashCompass?retryWrites=true&w=majority&appName=project1`,
       collectionName: "sessions",
     }),
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
-      httpOnly: true, // Helps prevent cross-site scripting attacks
-      secure: process.env.NODE_ENV === 'production', // Set to true if using HTTPS
-      sameSite: 'None', // Ensure cross-site cookies are allowed
+      httpOnly: true,
+      secure: true, 
+      sameSite: 'None', 
     },
-  })
+  })a
 );
 
 // Initialize Passport.js
