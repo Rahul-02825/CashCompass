@@ -31,7 +31,11 @@ const Modal = ({ isVisible, onClose }) => {
     setIsSubmitting(true); 
     console.log('Form submission started');
     try {
-      const response = await axios.post('https://cash-compass-server.vercel.app/api/donor', formData,{
+      const response = await axios.post(`${
+          process.env.NODE_ENV === "production"
+            ? process.env.REACT_APP_PROD_URL+"/api/donor"
+            : process.env.REACT_APP_BACKEND_URL+"/api/donor"
+        }`, formData,{
           headers: {
             'Content-Type': 'application/json'
           },

@@ -28,7 +28,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://cash-compass-server.vercel.app/api/user', formData);
+      const response = await axios.post(`${
+          process.env.NODE_ENV === "production"
+            ? process.env.REACT_APP_PROD_URL+"/api/user"
+            : process.env.REACT_APP_BACKEND_URL+"/api/user"
+        }`, formData);
       setMessage('User created successfully!');
       alert("User created succesfully")
       console.log(response.data);
