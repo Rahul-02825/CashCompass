@@ -7,6 +7,7 @@ exports.CreateDebts=async(req,res)=> {
     debtstatus=req.body.checkbox?'true':'false'
 
     try{
+        
         const newUser=new Debt({
             user:req.user.id,
             firstname,

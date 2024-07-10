@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true,
-        unique:true,
     },
     firstname: {
         type: String,
@@ -27,7 +26,8 @@ const userSchema = new mongoose.Schema({
     },
     contact:{
         type:Number,
-        validate: [validatenumber, 'Number should be exactly 10 digits']
+        validate: [validatenumber, 'Number should be exactly 10 digits'],
+        unique: true
     },
     email: {
         type: String,

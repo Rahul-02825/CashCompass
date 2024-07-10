@@ -7,7 +7,7 @@ const path = require("path");
 require("./Config/Auth");
 require("dotenv").config();
 
-// Import custom routes
+//import custom routes
 const Userapi = require("./Api/Userapi");
 const Debtapi = require("./Api/Debtapi");
 
@@ -21,8 +21,9 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-  origin: "https://cash-compass-sigma.vercel.app", // Specific origin for CORS
+  origin: ["https://cash-compass-sigma.vercel.app","http://localhost:3000"], // Specific origin for CORS
   credentials: true,
+  
 };
 
 app.use(cors(corsOptions));
@@ -35,7 +36,7 @@ app.get("/", async (req, res) => {
 // Session storage
 app.use(
   require("express-session")({
-    secret: "keyboard cat",
+    secret: `${process.env.COOKIE_SECRET}`,
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
@@ -43,11 +44,11 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-      httpOnly: true,
-      secure: true, 
-      sameSite: 'None', 
-    },
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+      // httpOnly: true, // Helps prevent cross-site scripting attacks
+      // secure: false, // Set to true if using HTTPS
+      // sameSite: 'None' 
+    }, // 1 day
   })
 );
 
@@ -55,10 +56,23 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Authentication Middleware
+// function ensureAuthenticated(req, res, next) {
+//     console.log('Session:', req.session);
+//     console.log('User:', req.user);
+//     if (req.isAuthenticated()) {
+//         console.log('User is authenticated');
+//         return next();
+//     }
+//     console.log('User is not authenticated');
+//     res.status(401).json({ message: 'Not authenticated' });
+// }
+//console.log('ensureAuthenticated:', ensureAuthenticated);
+
 // Public Routes
 app.post("/login", passport.authenticate("local"), (req, res) => {
   console.log('Set-Cookie Header:', res.getHeader('Set-Cookie'));
-  res.json({ user: req.user._id, username: req.user.firstname, cookie: res.getHeader('Set-Cookie') ? "true" : "false" });
+  res.json({ user: req.user._id, username: req.user.firstname,cookie:res.getHeader('Set-Cookie')?"true":"false" });
 });
 
 app.get("/user", (req, res) => {
@@ -69,9 +83,11 @@ app.get("/user", (req, res) => {
   }
 });
 
+//module.exports = { ensureAuthenticated };
+
 // API Routes
 app.use("/api", Userapi);
 app.use("/api", Debtapi);
 
 const PORT = process.env.PORT || 9001;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => console.log('Server started bhj on port ${PORT}'));
