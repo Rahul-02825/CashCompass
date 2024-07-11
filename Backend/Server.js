@@ -21,7 +21,7 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-  origin: ["https://cash-compass-sigma.vercel.app","http://localhost:3000"], // Specific origin for CORS
+  origin: ["https://cash-compass-sigma.vercel.app","http://localhost:3000","https://cash-compass-git-main-rahuls-projects-56f26371.vercel.app"], // Specific origin for CORS
   credentials: true,
   
 };
