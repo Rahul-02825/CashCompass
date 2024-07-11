@@ -15,7 +15,6 @@ export default function Admin_login() {
   const handlenavigate = () => {
     navigate("./register");
   };
-  console.log(process.env.REACT_APP_BACKEND_URL );
 
   const handleSubmit = async (e) => {
     e.preventDefault();

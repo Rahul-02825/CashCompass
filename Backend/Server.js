@@ -48,7 +48,7 @@ app.use(
     }),
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
-      // httpOnly: true, // Helps prevent cross-site scripting attacks
+      httpOnly: true, // Helps prevent cross-site scripting attacks
       secure: true, // Set to true if using HTTPS
       sameSite: 'None'
     }, // 1 day
