@@ -21,9 +21,12 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-  origin: ["https://cash-compass-sigma.vercel.app","http://localhost:3000","https://cash-compass-git-main-rahuls-projects-56f26371.vercel.app"], // Specific origin for CORS
+  origin: [
+    "https://cash-compass-sigma.vercel.app",
+    "http://localhost:3000",
+    "https://cash-compass-git-main-rahuls-projects-56f26371.vercel.app",
+  ], // Specific origin for CORS
   credentials: true,
-  
 };
 
 app.use(cors(corsOptions));
@@ -44,11 +47,14 @@ app.use(
       collectionName: "sessions",
     }),
     cookie: {
-      maxAge: 24 * 60 * 60 * 1000 // 1 day
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
       // httpOnly: true, // Helps prevent cross-site scripting attacks
       // secure: false, // Set to true if using HTTPS
-      // sameSite: 'None' 
+      // sameSite: 'None'
     }, // 1 day
+    httpOnly: process.env.NODE_ENV === "production" ? true : false,
+    secure: process.env.NODE_ENV === "production" ? true : false, // Set to true if using HTTPS
+    sameSite: "None", // Adjust sameSite attribute
   })
 );
 
@@ -71,8 +77,12 @@ app.use(passport.session());
 
 // Public Routes
 app.post("/login", passport.authenticate("local"), (req, res) => {
-  console.log('Set-Cookie Header:', res.getHeader('Set-Cookie'));
-  res.json({ user: req.user._id, username: req.user.firstname,cookie:res.getHeader('Set-Cookie')?"true":"false" });
+  console.log("Set-Cookie Header:", res.getHeader("Set-Cookie"));
+  res.json({
+    user: req.user._id,
+    username: req.user.firstname,
+    cookie: res.getHeader("Set-Cookie") ? "true" : "false",
+  });
 });
 
 app.get("/user", (req, res) => {
@@ -90,4 +100,4 @@ app.use("/api", Userapi);
 app.use("/api", Debtapi);
 
 const PORT = process.env.PORT || 9001;
-app.listen(PORT, () => console.log('Server started bhj on port ${PORT}'));
+app.listen(PORT, () => console.log("Server started bhj on port ${PORT}"));
