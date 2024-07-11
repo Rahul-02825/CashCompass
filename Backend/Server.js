@@ -49,11 +49,8 @@ app.use(
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
       // httpOnly: true, // Helps prevent cross-site scripting attacks
-      // secure: false, // Set to true if using HTTPS
-      // sameSite: 'None'
-      httpOnly: process.env.NODE_ENV === "production" ? true : false,
-      secure: process.env.NODE_ENV === "production" ? true : false, // Set to true if using HTTPS
-      sameSite: "None", // Adjust sameSite attribute
+      secure: true, // Set to true if using HTTPS
+      sameSite: 'None'
     }, // 1 day
 
   })
@@ -101,4 +98,4 @@ app.use("/api", Userapi);
 app.use("/api", Debtapi);
 
 const PORT = process.env.PORT || 9001;
-app.listen(PORT, () => console.log("Server started bhj on port ${PORT}"));
+app.listen(PORT, () => console.log(`Server started bhj on port ${PORT}`));
