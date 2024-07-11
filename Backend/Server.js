@@ -51,10 +51,11 @@ app.use(
       // httpOnly: true, // Helps prevent cross-site scripting attacks
       // secure: false, // Set to true if using HTTPS
       // sameSite: 'None'
+      httpOnly: process.env.NODE_ENV === "production" ? true : false,
+      secure: process.env.NODE_ENV === "production" ? true : false, // Set to true if using HTTPS
+      sameSite: "None", // Adjust sameSite attribute
     }, // 1 day
-    httpOnly: process.env.NODE_ENV === "production" ? true : false,
-    secure: process.env.NODE_ENV === "production" ? true : false, // Set to true if using HTTPS
-    sameSite: "None", // Adjust sameSite attribute
+
   })
 );
 
