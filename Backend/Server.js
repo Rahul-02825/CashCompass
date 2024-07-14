@@ -48,9 +48,9 @@ app.use(
     }),
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
-      httpOnly: true, // Helps prevent cross-site scripting attacks
-      secure: true, // Set to true if using HTTPS
-      sameSite: 'None'
+      // httpOnly: true, // Helps prevent cross-site scripting attacks
+      // secure: true, // Set to true if using HTTPS
+      // sameSite: 'None'
     }, // 1 day
 
   })
@@ -85,7 +85,8 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
 
 app.get("/user", (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({ username: req.user.firstname });
+    res.json({ username:req.user.username,firstname: req.user.firstname, secondname:req.user.secondname,contact:req.user.contact,
+      email:req.user.email,income:req.user.income });
   } else {
     res.status(401).json({ message: "Not authenticated" });
   }

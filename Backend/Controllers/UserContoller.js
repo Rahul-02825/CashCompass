@@ -40,12 +40,13 @@ exports.CreateUser = async (req, res) => {
   }
 };
 
-//PUT
+//PUT(PROFILE UPDATE)
 exports.updateUserDetails = async (req, res) => {
   const userId = await User.findById(req.user.id);
   const updates = req.body;
 
   try {
+
     const updatedUser = await User.findByIdAndUpdate(userId, updates, {
       new: true,
       runValidators: true,
