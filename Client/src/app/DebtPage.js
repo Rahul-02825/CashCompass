@@ -31,7 +31,9 @@ function App() {
         <div className="flex">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div className="flex-1">
-                <Navbar toggleSidebar={toggleSidebar} />
+                <Navbar toggleSidebar={toggleSidebar} 
+                    message='Debt Records'
+                 />
 
                 {/*Content for debtpage */}
                  

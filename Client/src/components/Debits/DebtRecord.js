@@ -67,7 +67,7 @@ const DebtTable = () => {
       <div className="flex">
         <h1 className="text-2xl font-bold m-4">Debt History</h1>
         {/* filter options code */}
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           {/* filter div*/}
           <div
             className="ml-4 mt-4 mb-2 shadow-md px-5 py-3 flex cursor-pointer"
@@ -222,9 +222,18 @@ const DebtTable = () => {
                 <div className="text-red-400">{item.debtstatus}</div>
               )}
             </div>
+            <div>
+                <button
+                    className="bg-green-400 rounded-lg px-3 py-3 text-black m-3"
+                    onClick={() => handleAddClick(item._id)}
+                  >
+                    Update
+                </button>
+            </div>
           </div>
         ))}
       </div>
+      
       <UpdateModal
         isVisible={isModalVisible}
         onClose={handleModalClose}

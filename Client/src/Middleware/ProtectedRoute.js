@@ -28,7 +28,7 @@ const ProtectedRoutes = () => {
         if (response.data) {
           //console.log(response)
           setUser(response.data);
-          setuser(response.data.username);
+          setuser(response.data);
         } else {
           setUser(null);
         }

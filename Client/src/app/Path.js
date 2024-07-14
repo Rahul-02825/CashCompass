@@ -6,6 +6,7 @@ import ProtectedRoutes from '../Middleware/ProtectedRoute'
 import {UserProvider} from '../Middleware/Context'
 import DebtPage from './DebtPage'
 import DebtRecord from '../components/Debits/DebtRecord'
+import Profile from './Profile'
 
 
 function Path(){
@@ -16,6 +17,7 @@ function Path(){
                     <Route path="/" element={<Logs/>}/>    
                     <Route element={<ProtectedRoutes/>} >             
                         <Route path="/debt" element={<DebtPage/>}/> 
+                        <Route path="/profile" element={<Profile/>}/> 
                     </Route>  
                     <Route path="/Register" element={<Register/>}/>    
 
