@@ -1,68 +1,111 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import profileIcon from "../assets/Profile.svg";
+import HomeIcon from "../assets/Home.svg";
+import EventsIcon from "../assets/Events.svg";
+import LeaderBoardIcon from "../assets/LeaderBoard.svg";
+import ScanIcon from "../assets/scan.svg";
 
-import { TbMenu2 } from "react-icons/tb";
-import Usercontext from '../Middleware/Context';
-import { CgProfile } from "react-icons/cg";
-import { HiOutlineDotsVertical } from "react-icons/hi";
+function NavigationBar() {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-export default function Navbar({ toggleSidebar,message }) {
-    const { user } = useContext(Usercontext);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const dropdownRef = useRef(null);
-    const [navMessage,setnavMessage]=useState(message)
-    const handleProfileClick = () => {
-        setShowDropdown(!showDropdown);
-    };
+  const handleClick = (index) => {
+    setActiveIndex(index);
+  };
 
-    const navmessage=()=>{
-        setnavMessage(message)
-    }
-    const navigateProfile=useNavigate()
-    const navigate={
-        profile:function(){
-            navigateProfile('../profile')
-        }
-    }
+  return (
+    <div className="relative flex justify-center my-10 w-screen p-1">
+      <div className="bg-[#232323] mx-5 rounded-full grid grid-flow-col gap-20  sm:gap-28 p-1 lg:w-1/2 sm:w-8/12 ">
+        <div className="grid grid-flow-col gap-2.5 sm:gap-x-4 lg:gap-x-2">
+          <div
+            className={`rounded-full p-2 m-1 sm:mx-2 sm:p-2.5 lg:p-1 text-white cursor-pointer ${
+              activeIndex === 0 ? "bg-[#C02727]" : "bg-[#232323]"
+            }`}
+            onClick={() => handleClick(0)}
+          >
+            {/* icons */}
+            <div className="grid grid-flow-row place-items-center px-1">
+              <div>
+                <img
+                  src={HomeIcon}
+                  alt=""
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </div>
 
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setShowDropdown(false);
-            }
-        };
-        document.addEventListener("mousedown", handleOutsideClick);
-
-        return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        };
-    }, []);
-
-    return (
-        <div className="flex justify-between items-center shadow-lg py-3 ">
-            {/* Left side content */}
-            <div className="flex items-center">
-                <div className="text-3xl sm:hidden" onClick={toggleSidebar}><TbMenu2 /></div>
-                <div className="ml-4 text-2xl font-semibold">{navMessage}</div>
+              <div className="hidden lg:block text-center">Home</div>
             </div>
-
-            {/* Right side content */}
-            {/* Small screen dot icon */}
-            <div className="text-4xl cursor-pointer sm:hidden"><HiOutlineDotsVertical /></div>
-
-            {/* Bigger screens */}
-            <div className="relative hidden sm:flex items-center space-x-4">
-                <input type="text" placeholder="Search people" className="px-4 py-2 rounded-md border" />
-                <div className="text-4xl cursor-pointer" onClick={handleProfileClick}><CgProfile /></div>
-
-                {/* Dropdown */}
-                {showDropdown && (
-                    <div ref={dropdownRef} className="absolute right-0 mt-12 w-48 bg-white border rounded-md shadow-lg z-10">
-                        <div className="p-2 hover:bg-gray-200 cursor-pointer" onClick={navigate.profile}>Profile</div>
-                        <div className="p-2 hover:bg-gray-200 cursor-pointer">Logout</div>
-                    </div>
-                )}
+          </div>
+          <div
+            className={`rounded-full p-2 m-1 sm:mx-2 sm:px-2.5 lg:p-1 text-white cursor-pointer ${
+              activeIndex === 1 ? "bg-[#C02727]" : "bg-[#232323]"
+            } text-center`}
+            onClick={() => handleClick(1)}
+          >
+            {/* icons */}
+            <div className="grid grid-flow-row place-items-center ">
+              <div>
+                <img
+                  src={EventsIcon}
+                  alt=""
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </div>
+              <div className="hidden lg:block text-center">Accounts</div>
             </div>
+          </div>
         </div>
-    );
+
+        <div className="grid grid-flow-col gap-2.5 sm:gap-x-4 lg:gap-x-2">
+          <div
+            className={`rounded-full p-2 m-1 sm:mx-2 sm:p-2.5 lg:p-1 text-white cursor-pointer ${
+              activeIndex === 2 ? "bg-[#C02727]" : "bg-[#232323]"
+            }`}
+            onClick={() => handleClick(2)}
+          >
+            {/* icons */}
+            <div className="grid grid-flow-row place-items-center">
+              <div>
+                <img
+                  src={LeaderBoardIcon}
+                  alt=""
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </div>
+              <div className="hidden lg:block text-center">Transaction</div>
+            </div>
+          </div>
+          <div
+            className={`rounded-full p-2 m-1 sm:mx-2 sm:p-2.5 lg:p-1 text-white cursor-pointer ${
+              activeIndex === 3 ? "bg-[#C02727]" : "bg-[#232323] text-center"
+            }`}
+            onClick={() => handleClick(3)}
+          >
+            {/* icons */}
+            <div className="grid grid-flow-row place-items-center ">
+              <div>
+                <img
+                  src={ScanIcon}
+                  alt=""
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </div>
+              <div className="hidden lg:block text-center">Budget</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute left-[calc(50%+-5px)] transform -translate-x-1/2 -top-3 sm:-top-4 bg-[#232323] rounded-full p-2 sm:p-3 text-white z-10 cursor-pointer shadow-lg">
+        <div className="rounded-full bg-[#5D3288] p-4 sm:p-6">
+          <img
+            src={profileIcon}
+            alt=""
+            style={{ width: "28px", height: "28px" }}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
+
+export default NavigationBar;

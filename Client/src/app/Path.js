@@ -4,9 +4,10 @@ import Logs from './Logs'
 import Register from './Register'
 import ProtectedRoutes from '../Middleware/ProtectedRoute'
 import {UserProvider} from '../Middleware/Context'
-import DebtPage from './DebtPage'
+import Home from './Home'
 import DebtRecord from '../components/Debits/DebtRecord'
 import Profile from './Profile'
+import Accounts from './Accounts'
 
 
 function Path(){
@@ -16,8 +17,9 @@ function Path(){
                 <Routes>
                     <Route path="/" element={<Logs/>}/>    
                     <Route element={<ProtectedRoutes/>} >             
-                        <Route path="/debt" element={<DebtPage/>}/> 
+                        <Route path="/home" element={<Home/>}/> 
                         <Route path="/profile" element={<Profile/>}/> 
+                        <Route path="/accounts" element={<Accounts/>}/> 
                     </Route>  
                     <Route path="/Register" element={<Register/>}/>    
 

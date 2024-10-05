@@ -3,7 +3,6 @@ import Usercontext from "../Middleware/Context";
 import axios from 'axios'
 import { CgProfile } from "react-icons/cg";
 import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
 
 
 
@@ -70,9 +69,7 @@ export default function Profile (){
 
     return (
         <div className='flex'>
-            <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> 
-            <div className="flex-1">
-                <Navbar toggleSidebar={toggleSidebar} message='PROFILE'/>
+            
                 {/* display form */}
             <div className="flex">
                 <div className="grid grid-cols-1 w-full">
@@ -186,6 +183,5 @@ export default function Profile (){
             </div>        
             </div>
                   
-        </div>
     )
 }

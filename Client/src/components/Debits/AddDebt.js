@@ -11,7 +11,8 @@ const Modal = ({ isVisible, onClose }) => {
     email: '',
     contact: '',
     money: '',
-    enddate: ''
+    enddate: '',
+    description:''
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -111,6 +112,15 @@ const Modal = ({ isVisible, onClose }) => {
               value={formData.enddate}
               onChange={handleChange}
               placeholder="Debt End date"
+              required
+            />
+            <input
+              className="rounded-2xl p-3 m-2 bg-gray-100 lg:px-16"
+              type="text"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Description"
               required
             />
           </div>

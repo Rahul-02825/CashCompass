@@ -32,7 +32,7 @@ const DebtTable = () => {
           { withCredentials: true }
         );
         setResponsedata(response.data);
-        //console.log(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Failed to fetch user", error);
       }
@@ -112,8 +112,10 @@ const DebtTable = () => {
         </div>
       </div>
       {/* Largen screens in table form */}
+      {responsedata.all.length!=0?
       <div className="overflow-auto max-h-[450px] border border-gray-200 rounded-lg shadow-lg hidden md:block md:max-w-full z-5">
         <table className="min-w-full divide-y divide-gray-200">
+
           <thead>
             <tr>
               <th className="px-3 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
@@ -133,6 +135,9 @@ const DebtTable = () => {
               </th>
               <th className="px-3 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
                 Debt Money
+              </th>
+              <th className="px-3 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
+                Description
               </th>
               <th className="px-3 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
                 Status
@@ -171,6 +176,9 @@ const DebtTable = () => {
                 <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
                   {item.money}
                 </td>
+                <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {item.description}
+                </td>
                 <td className="px-3 py-4 whitespace-nowrap text-sm">
                   {item.debtstatus === "true" ? (
                     <div className="text-green-400">{item.debtstatus}</div>
@@ -190,7 +198,8 @@ const DebtTable = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div>:<div>no data found</div>}
+
       {/* on small screens in card form */}
 
       <div className="md:hidden m-2 sm:overflow-auto max-h-[450px]">
