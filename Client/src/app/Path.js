@@ -8,6 +8,7 @@ import Home from './Home'
 import DebtRecord from '../components/Debits/DebtRecord'
 import Profile from './Profile'
 import Accounts from './Accounts'
+import Transactions from './Transaction'
 
 
 function Path(){
@@ -20,6 +21,7 @@ function Path(){
                         <Route path="/home" element={<Home/>}/> 
                         <Route path="/profile" element={<Profile/>}/> 
                         <Route path="/accounts" element={<Accounts/>}/> 
+                        <Route path="/transactions" element={<Transactions/>}/> 
                     </Route>  
                     <Route path="/Register" element={<Register/>}/>    
 

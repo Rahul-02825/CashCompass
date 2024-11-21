@@ -62,7 +62,10 @@ const Addaccounts = ({ isvisible, onClose }) => {
       <div className="bg-[#171717] p-5 rounded-lg shadow-lg max-w-md lg:max-w-xl md:max-w-md">
         <h2 className="text-2xl mb-4 text-white">Add Account</h2>
         {/* The handleSubmit is now directly attached to the form submission */}
-        <form onSubmit={handleSubmit} className="w-full flex flex-col justify-center items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full flex flex-col justify-center items-center"
+        >
           <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-4">
             <div className="flex flex-col">
               <div className="px-3 text-white">Account Name</div>
@@ -86,16 +89,17 @@ const Addaccounts = ({ isvisible, onClose }) => {
                 required
               />
             </div>
+            
           </div>
           <div className="w-full text-white text-left ml-10">Balance</div>
-            <input
-              className="rounded-2xl p-3 mx-2  bg-[#232323] sm:w-full"
-              type="number"
-              name="balance"
-              value={formData.balance}
-              onChange={handleChange}
-              required
-            />
+          <input
+            className="rounded-2xl p-3 mx-2  bg-[#232323] sm:w-full"
+            type="number"
+            name="balance"
+            value={formData.balance}
+            onChange={handleChange}
+            required
+          />
 
           <div className="flex justify-end w-full">
             <button

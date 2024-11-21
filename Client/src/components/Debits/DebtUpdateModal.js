@@ -20,7 +20,7 @@ const UpdateModal = ({ isVisible, onClose, id_ }) => {
     setFormData({ ...formData, id: id_ });
     console.log(formData)
   }, [id_]);
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({

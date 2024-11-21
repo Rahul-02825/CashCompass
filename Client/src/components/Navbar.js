@@ -95,7 +95,7 @@ function NavigationBar() {
         </div>
       </div>
 
-      <div className="absolute left-[calc(50%+-5px)] transform -translate-x-1/2 -top-3 sm:-top-4 bg-[#232323] rounded-full p-2 sm:p-3 text-white z-10 cursor-pointer shadow-lg">
+      <div className="absolute left-[calc(50%+1px)] transform -translate-x-1/2 -top-3 sm:-top-4 bg-[#232323] rounded-full p-2 sm:p-3 text-white z-10 cursor-pointer shadow-lg">
         <div className="rounded-full bg-[#5D3288] p-4 sm:p-6">
           <img
             src={profileIcon}

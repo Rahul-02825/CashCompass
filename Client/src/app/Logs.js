@@ -39,7 +39,7 @@ export default function Admin_login() {
       console.log(responseData);
       /*tried to get user fromn login */
       //  setuser({ username:response.data.username });
-      navigatehome("./debt");
+      navigatehome("./home");
     } catch (err) {
       setMessage("Invalid credentials");
       console.error(err);
