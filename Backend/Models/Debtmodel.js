@@ -1,3 +1,4 @@
+const { text } = require('body-parser');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -44,7 +45,9 @@ const DebtSchema = new Schema({
     },
     enddate:{
         type:Date,
-    } 
-});
-          
+    },
+    description:{
+        type:String,        
+    }
+});         
 module.exports = mongoose.model('Debt', DebtSchema);

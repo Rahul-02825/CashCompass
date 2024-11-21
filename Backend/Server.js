@@ -9,7 +9,9 @@ require("dotenv").config();
 
 //import custom routes
 const Userapi = require("./Api/Userapi");
-const Debtapi = require("./Api/Debtapi");
+const Accountsapi=require("./Api/Accountapi")
+const Transactionapi=require("./Api/Transactionapi")
+const Categoriesapi=require("./Api/Categoriesapi")
 
 // Initialize Express app
 const app = express();
@@ -96,7 +98,10 @@ app.get("/user", (req, res) => {
 
 // API Routes
 app.use("/api", Userapi);
-app.use("/api", Debtapi);
+app.use("/api", Accountsapi);
+app.use("/api",Transactionapi)
+app.use("/api",Categoriesapi)
+
 
 const PORT = process.env.PORT || 9001;
 app.listen(PORT, () => console.log(`Server started bhj on port ${PORT}`));
