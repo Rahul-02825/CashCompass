@@ -26,6 +26,7 @@ const CategoriesSchema = new Schema({
     },
     startdate: {
         type: Date,
+        default:Date.now(),
     },
     
 });

@@ -23,7 +23,7 @@ exports.GetCategory = async (req, res) => {
   try {
     console.log(req.body)
     console.log("getCategory")
-    const category = await Categories.findById(req.user.id);
+    const category = await Categories.find({user:req.user.id});
     category ? res.json(category) : res.send("no category found");
   } catch (err) {
     console.error(err);

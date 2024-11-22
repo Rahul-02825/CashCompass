@@ -20,7 +20,7 @@ const TransactionSchema = new Schema({
         required:true,
         ref:'User'
     },
-    From:{
+    from:{
         type:Schema.Types.ObjectId,
         required:true,
         ref:'Account'
@@ -33,7 +33,7 @@ const TransactionSchema = new Schema({
         type:Number,
         required:true
     },
-    category:{
+    group:{
         type:Schema.Types.ObjectId,
         ref:'Categories',
         required:true
