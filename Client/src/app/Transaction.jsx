@@ -1,15 +1,26 @@
 import React from "react";
 import { useState } from "react";
 import Addtransaction from '../components/Addtransaction'
+import Addcategory from '../components/Addcategory'
+import { Displaytransactions } from "../components/Displaytransactions";
 
 const Transaction = () => {
+  // for tranaction
   const [addtransaction, setaddtransaction] = useState(false);
-  console.log(addtransaction);
   const handleCloseModal = () => {
     setaddtransaction(false);
   };
   const handleOpenModal = () => {
     setaddtransaction(true);
+  };
+
+// for category
+  const [addcategory, setaddcategory] = useState(false);
+  const handleCloseModalcat = () => {
+    setaddcategory(false);
+  };
+  const handleOpenModalcat = () => {
+    setaddcategory(true);
   };
 
   return (
@@ -25,11 +36,19 @@ const Transaction = () => {
           <button className="bg-[#5D3288] rounded-lg mx-2" onClick={handleOpenModal}>
             <div className="p-3 text-white"> + Add transaction</div>
           </button>
+          <button className="bg-[#5D3288] rounded-lg mx-2" onClick={handleOpenModalcat}>
+            <div className="p-3 text-white"> + Add category</div>
+          </button>
           <button className="bg-[#5D3288] rounded-lg mx-2">
             <div className="p-3 text-white"> Filter</div>
           </button>
         </div>
         <Addtransaction isvisible={addtransaction} onClose={handleCloseModal}/>
+        <Addcategory isvisible={addcategory} onClose={handleCloseModalcat}/>
+        <Displaytransactions/>
+
+
+
       </div>
       {/* large devices */}
       <div className="md:block"></div>
