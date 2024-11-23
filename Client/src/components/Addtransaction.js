@@ -108,16 +108,13 @@ const AddTransaction = ({ isvisible, onClose }) => {
       alert("add accounts before adding a transaction");
       return
     }
-
     //validate accounts with balance
     const res=await validate(formData.from,formData.amount)
     if(!res){
       setIsSubmitting(false)
       alert("balance is less in the account")
       return
-
     }
-
     try {
       const response = await axios.post(
         `${
@@ -148,7 +145,6 @@ const AddTransaction = ({ isvisible, onClose }) => {
   if (!isvisible) {
     return null;
   }
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-[#171717] p-5 rounded-lg shadow-lg max-w-md lg:max-w-xl md:max-w-md">

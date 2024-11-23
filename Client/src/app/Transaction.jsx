@@ -24,14 +24,14 @@ const Transaction = () => {
   };
 
   return (
-    <>
+    <div>
       {/* title of the page */}
-      <div className="font-bold flex  text-white w-40 mx-5 my-5 lg:mx-10">
+      <div className="font-bold flex  text-white w-40 mx-5 my-5 lg:m-20">
         <div className="md:hidden py-1.5 pr-4 text-1xl">X</div>
         <div className="text-2xl md:text-3xl">Transactions</div>
       </div>
       {/* for mobile devices */}
-      <div className="md:hidden">
+      <div className="md:hidden h-screen">
         <div className="mx-5 flex">
           <button className="bg-[#5D3288] rounded-lg mx-2" onClick={handleOpenModal}>
             <div className="p-3 text-white"> + Add transaction</div>
@@ -46,13 +46,12 @@ const Transaction = () => {
         <Addtransaction isvisible={addtransaction} onClose={handleCloseModal}/>
         <Addcategory isvisible={addcategory} onClose={handleCloseModalcat}/>
         <Displaytransactions/>
-
-
-
       </div>
       {/* large devices */}
-      <div className="md:block"></div>
-    </>
+      <div className="hidden md:block lg:m-20">
+        <Displaytransactions/>
+      </div>
+    </div>
   );
 };
 export default Transaction;
