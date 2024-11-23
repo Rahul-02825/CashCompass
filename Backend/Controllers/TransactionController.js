@@ -1,5 +1,7 @@
 const Transactions = require("../Models/Transactionmodel");
 const Accounts = require("../Models/Accountmodel");
+const Categories=require("../Models/Categoriesmodel")
+const { isTemplateSpan } = require("typescript");
 
 //POST
 exports.createTransaction = async (req, res) => {
@@ -27,13 +29,33 @@ exports.createTransaction = async (req, res) => {
 //GET
 exports.getTransaction = async (req, res) => {
   try {
-    const transactions = await Transactions.find({ user: req.user._id });
-    transactions ? res.json(transactions) : res.send("no transactions found");
+    const transactions = await Transactions.find({ user: req.user._id }).lean(); // Convert documents to plain objects
+
+    if (!transactions.length) {
+      return res.send("No transactions found");
+    }
+
+    const newTransactions = await Promise.all(
+      transactions.map(async (item) => {
+        const account = await Accounts.findOne({ _id: item.from });
+        const category = await Categories.findOne({ _id: item.group });
+
+        return {
+          ...item,
+          accountName: account ? account.name : "Unknown Account",
+          categoryName: category ? category.name : "Unknown Category"
+        };
+      })
+    );
+    console.log(newTransactions)
+    res.json(newTransactions);
+
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
 };
+
 
 //PUT
 exports.updateTransaction = async (req, res) => {
