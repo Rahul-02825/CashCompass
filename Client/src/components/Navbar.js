@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import profileIcon from "../assets/Profile.svg";
 import HomeIcon from "../assets/Home.svg";
 import EventsIcon from "../assets/Events.svg";
 import LeaderBoardIcon from "../assets/LeaderBoard.svg";
 import ScanIcon from "../assets/scan.svg";
+import { useNavigate,useLocation } from "react-router-dom";
 
 function NavigationBar() {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const handleClick = (index) => {
+  const navigate = useNavigate();
+  const location = useLocation()
+  const handleClick = (index, route) => {
     setActiveIndex(index);
+    navigate(`/${route}`);
   };
+  const routes = ["home","accounts","transactions","budget"]
+  useEffect(()=>{
+    const index_value = location.pathname
+    const new_var = index_value.replace("/","")
+    const curr_index = routes.indexOf(new_var)
+    setActiveIndex(curr_index !== -1 ? curr_index:0)
+  },[location.pathname])
 
   return (
     <div className="relative flex justify-center my-10 w-screen p-1">
@@ -20,7 +30,7 @@ function NavigationBar() {
             className={`rounded-full p-2 m-1 sm:mx-2 sm:p-2.5 lg:p-1 text-white cursor-pointer ${
               activeIndex === 0 ? "bg-[#C02727]" : "bg-[#232323]"
             }`}
-            onClick={() => handleClick(0)}
+            onClick={() => handleClick(0,"home")}
           >
             {/* icons */}
             <div className="grid grid-flow-row place-items-center px-1">
@@ -39,7 +49,7 @@ function NavigationBar() {
             className={`rounded-full p-2 m-1 sm:mx-2 sm:px-2.5 lg:p-1 text-white cursor-pointer ${
               activeIndex === 1 ? "bg-[#C02727]" : "bg-[#232323]"
             } text-center`}
-            onClick={() => handleClick(1)}
+            onClick={() => handleClick(1,"accounts")}
           >
             {/* icons */}
             <div className="grid grid-flow-row place-items-center ">
@@ -60,7 +70,7 @@ function NavigationBar() {
             className={`rounded-full p-2 m-1 sm:mx-2 sm:p-2.5 lg:p-1 text-white cursor-pointer ${
               activeIndex === 2 ? "bg-[#C02727]" : "bg-[#232323]"
             }`}
-            onClick={() => handleClick(2)}
+            onClick={() => handleClick(2,"transactions")}
           >
             {/* icons */}
             <div className="grid grid-flow-row place-items-center">
@@ -78,7 +88,7 @@ function NavigationBar() {
             className={`rounded-full p-2 m-1 sm:mx-2 sm:p-2.5 lg:p-1 text-white cursor-pointer ${
               activeIndex === 3 ? "bg-[#C02727]" : "bg-[#232323] text-center"
             }`}
-            onClick={() => handleClick(3)}
+            onClick={() => handleClick(3,"budget")}
           >
             {/* icons */}
             <div className="grid grid-flow-row place-items-center ">
