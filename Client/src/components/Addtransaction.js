@@ -127,7 +127,7 @@ const AddTransaction = ({ isvisible, onClose }) => {
       return
     }
     try {
-      const response = await axios.post(
+      const response = await axios.post( 
         `${
           process.env.NODE_ENV === "production"
             ? process.env.REACT_APP_PROD_URL + "/api/addtransaction"

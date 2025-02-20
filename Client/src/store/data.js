@@ -8,7 +8,12 @@ const useDataStore = create(
       data: [],
       loading: false,
       error: null,
+      datasets :{
+        income: 0,
+        expense: 0,
 
+      },
+      
       fetchaccount: async () => {
         console.log("fetching accounts");
         set({ loading: true, error: false });
@@ -29,8 +34,8 @@ const useDataStore = create(
         }
       },
 
-      addAccounts: async (e,new_account) => {
-        e.preventDefault()
+      addAccounts: async (e, new_account) => {
+        e.preventDefault();
         const previousData = get().data;
         // Optimistic UI update before database update
         set((state) => ({
@@ -46,13 +51,30 @@ const useDataStore = create(
           await axios.post(`${baseUrl}/api/accounts`, new_account, {
             withCredentials: true,
           });
-          console.log("added accounts")
-          alert("added accounts")
-          get().fetchaccount()
+          console.log("added accounts");
+          alert("added accounts");
+          get().fetchaccount();
         } catch (err) {
           console.error("Error adding accounts", err.message);
           // Rollback on failure
           set({ data: previousData });
+        }
+      },
+      calculate: async () => {
+        try {
+          const baseUrl =
+            process.env.NODE_ENV === "production"
+              ? process.env.REACT_APP_PROD_URL
+              : process.env.REACT_APP_BACKEND_URL;
+          const response = await axios.get(`${baseUrl}/api/getData`,{withCredentials:true});
+          set((state)=>({
+            ...state.datasets,
+            income:response.data.income,
+            expense:response.data.expense
+          }))
+
+        } catch (err) {
+          console.error(err.message)
         }
       },
     }),
