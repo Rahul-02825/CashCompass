@@ -110,6 +110,7 @@ const AddTransaction = ({ isvisible, onClose }) => {
     }
     //validate accounts with balance
     const res=await validate(formData.from,formData.amount)
+    
     if(!res){
       setIsSubmitting(false)
       alert("balance is less in the account")
