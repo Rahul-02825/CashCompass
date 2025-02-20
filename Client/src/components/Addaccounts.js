@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import  useDataStore  from "../store/data";
+
 axios.defaults.withCredentials = true;
 
 const Addaccounts = ({ isvisible, onClose }) => {
+  const { addAccounts } = useDataStore();
+
   const initialFormData = {
     name: "",
     group: "",
@@ -20,39 +24,49 @@ const Addaccounts = ({ isvisible, onClose }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    console.log(formData);
-    console.log("Form submission started");
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   console.log(formData);
+  //   console.log("Form submission started");
 
-    try {
-      const response = await axios.post(
-        `${
-          process.env.NODE_ENV === "production"
-            ? process.env.REACT_APP_PROD_URL + "/api/accounts"
-            : process.env.REACT_APP_BACKEND_URL + "/api/accounts"
-        }`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true, // Ensure cookies are sent with the request
-        }
-      );
-      console.log(response.data);
-      alert(response.data);
-      setFormData(initialFormData);
-      onClose();
-    } catch (err) {
-      console.error("Error in posting record:", err);
-    } finally {
-      setIsSubmitting(false);
-      console.log("Submission finished");
+  //   try {
+  //     const response = await axios.post(
+  //       `${
+  //         process.env.NODE_ENV === "production"
+  //           ? process.env.REACT_APP_PROD_URL + "/api/accounts"
+  //           : process.env.REACT_APP_BACKEND_URL + "/api/accounts"
+  //       }`,
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         withCredentials: true, // Ensure cookies are sent with the request
+  //       }
+  //     );
+  //     console.log(response.data);
+  //     alert(response.data);
+  //     setFormData(initialFormData);
+  //     onClose();
+  //   } catch (err) {
+  //     console.error("Error in posting record:", err);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //     console.log("Submission finished");
+  //   }
+  // };
+
+  const handleSubmit = async(e) => {
+    try{
+      console.log(formData)
+      addAccounts(e,formData);
     }
+    catch(err){
+      console.log(err)
+    }
+    
   };
-
   if (!isvisible) {
     return null;
   }
@@ -89,7 +103,6 @@ const Addaccounts = ({ isvisible, onClose }) => {
                 required
               />
             </div>
-            
           </div>
           <div className="w-full text-white text-left ml-10">Balance</div>
           <input
@@ -114,7 +127,6 @@ const Addaccounts = ({ isvisible, onClose }) => {
             <button
               className="rounded-2xl px-8 py-3 mx-2 mt-5 lg:px-16 bg-[#5D3288] text-white font-semibold"
               type="submit"
-              disabled={isSubmitting}
             >
               Submit
             </button>

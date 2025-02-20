@@ -15,7 +15,17 @@ const AddTransaction = ({ isvisible, onClose }) => {
       [name]: value,
     });
   };
-
+  useEffect(() => {
+    if (accountsdata.length === 1) {
+      setFormData((prev) => ({ ...prev, from: accountsdata[0]._id }));
+    }
+  }, [accountsdata]);
+  
+  useEffect(() => {
+    if (categoriesdata.length === 1) {
+      setFormData((prev) => ({ ...prev, group: categoriesdata[0]._id }));
+    }
+  }, [categoriesdata]);
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
@@ -98,12 +108,12 @@ const AddTransaction = ({ isvisible, onClose }) => {
     console.log(formData.group);
 
     // checking wheather from(accounts) or category is empty
-    if (formData.group == "") {
+    if (formData.group === "") {
       setIsSubmitting(false);
       alert("add category before adding a transaction");
       return;
     }
-    if (formData.from == "") {
+    if (formData.from === "") {
       setIsSubmitting(false);
       alert("add accounts before adding a transaction");
       return
@@ -167,12 +177,17 @@ const AddTransaction = ({ isvisible, onClose }) => {
                 value={formData.from}
                 onChange={handleChange}
               >
-                {accountsdata.map((item) => (
-                  <option key={item._id} value={item._id}>
-                    {item.name}
-                  </option>
-                ))}
+                {accountsdata.length === 0 ? (
+                  <option value="">No accounts available</option>
+                ) : (
+                  accountsdata.map((item) => (
+                    <option key={item._id} value={item._id}>
+                      {item.name}
+                    </option>
+                  ))
+                )}
               </select>
+
             </div>
             <div className="flex flex-col">
               <div className="px-3 text-white">Date</div>

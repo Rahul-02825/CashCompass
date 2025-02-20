@@ -1,7 +1,7 @@
 const Transactions = require("../Models/Transactionmodel");
 const Accounts = require("../Models/Accountmodel");
 const Categories=require("../Models/Categoriesmodel")
-const { isTemplateSpan } = require("typescript");
+// const { isTemplateSpan } = require("typescript");
 
 //POST
 exports.createTransaction = async (req, res) => {
